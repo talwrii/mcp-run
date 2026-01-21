@@ -3,7 +3,7 @@ requires = [ "hatchling",]
 build-backend = "hatchling.build"
 
 [project]
-name = "mcp-run"
+name = "mcp-exec"
 version = "1.0.0"
 description = "Wrap CLI tools as MCP servers without configuration files"
 readme = "README.md"
@@ -16,8 +16,8 @@ dependencies = [ "mcp>=1.0.0",]
 name = "readwithai"
 
 [project.scripts]
-mcp-run = "mcp_run.main:main"
+mcp-exec = "mcp_exec.main:main"
 
 [project.urls]
-Homepage = "https://github.com/readwithai/mcp-run"
-Repository = "https://github.com/readwithai/mcp-run"
+Homepage = "https://github.com/readwithai/mcp-exec"
+Repository = "https://github.com/readwithai/mcp-exec"

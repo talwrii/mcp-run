@@ -1,14 +1,14 @@
 #!/usr/bin/env python3
 """
-mcp-run: Wrap CLI tools as MCP servers.
+mcp-exec: Wrap CLI tools as MCP servers.
 
 Single tool mode:
-  mcp-run convert "Resize images" \
+  mcp-exec convert "Resize images" \
     --pos-arg "input Input file" \
     --flag "-resize= Resize dimensions"
 
 Multi-tool mode (subcommands):
-  mcp-run book-by-para \
+  mcp-exec book-by-para \
     --tool "start Start reading a book" --pos-arg "file Path to book" \
     --tool "next Get next paragraph" \
     --tool "status Show reading status"
@@ -48,8 +48,8 @@ def parse_flag(val: str) -> tuple[str, str, str, bool]:
 def parse_args(argv):
     """Custom parser to handle --tool grouping."""
     if len(argv) < 2:
-        print("Usage: mcp-run <command> <description> [options]")
-        print("       mcp-run <command> [--extra-args 'args'] --tool 'name desc' [--pos-arg ...] [--tool ...]")
+        print("Usage: mcp-exec <command> <description> [options]")
+        print("       mcp-exec <command> [--extra-args 'args'] --tool 'name desc' [--pos-arg ...] [--tool ...]")
         sys.exit(1)
     
     command = argv[1]
@@ -79,7 +79,7 @@ def parse_args(argv):
 
 
 def parse_single_tool(command, rest):
-    """Parse single-tool mode: mcp-run cmd 'desc' --pos-arg ... --flag ..."""
+    """Parse single-tool mode: mcp-exec cmd 'desc' --pos-arg ... --flag ..."""
     if not rest:
         print("Error: Missing description")
         sys.exit(1)
@@ -122,7 +122,7 @@ def parse_single_tool(command, rest):
 
 
 def parse_multi_tool(command, rest):
-    """Parse multi-tool mode: mcp-run cmd --tool 'name desc' --pos-arg ..."""
+    """Parse multi-tool mode: mcp-exec cmd --tool 'name desc' --pos-arg ..."""
     tools = []
     current_tool = None
     
@@ -265,7 +265,7 @@ def build_mcp_tool(tool: dict) -> Tool:
 
 async def run_server(base_command: str, tools: list, extra_args: list = None):
     """Run the MCP server."""
-    server = Server("mcp-run")
+    server = Server("mcp-exec")
     
     mcp_tools = [build_mcp_tool(t) for t in tools]
     tool_map = {t["name"]: t for t in tools}
